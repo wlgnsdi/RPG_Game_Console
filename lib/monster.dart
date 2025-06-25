@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:monster_battle_console/creature.dart';
 
 class Monster extends Creature {
+  int increaseDefenceCount = 0;
   Monster(name, health, attackPower) : super(name, health, attackPower, 0);
 
   @override
@@ -15,6 +16,11 @@ class Monster extends Creature {
 
   @override
   void showStatus() {
-    print('$name - 체력: $health, 공격력: $attackPower');
+    print('$name - 체력: $health, 공격력: $attackPower, 방어력 : $defensePower');
+  }
+
+  void increaseDefence() {
+    defensePower += 2;
+    increaseDefenceCount = 0;
   }
 }

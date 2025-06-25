@@ -3,8 +3,8 @@
 abstract class Creature {
   final String name;
   int health;
-  final int attackPower;
-  final int defensePower;
+  int attackPower;
+  int defensePower;
 
   Creature(this.name, this.health, this.attackPower, this.defensePower);
 

@@ -8,18 +8,30 @@ import 'package:monster_battle_console/monster.dart';
 
 class Game {
   late FileManager fileManager;
-  
+
   final String attackAction = "1";
   final String defenseAction = "2";
+  final String useItemAction = "3";
 
   late Character character;
   List<Monster> monsters = [];
+  int monsterTotalCount = 0;
   int killedMonster = 0;
 
   Game() {
     fileManager = FileManager();
     character = fileManager.loadCharacter();
+    giveBonusHealth();
     monsters = fileManager.loadMonsterData(character);
+    monsterTotalCount = monsters.length;
+  }
+
+  void giveBonusHealth() {
+    Random random = Random();
+    if (random.nextInt(30) == 0) {
+      character.health += 10;
+      print('보너스 체력을 얻었습니다! 현재 체력: ${character.health}');
+    }
   }
 
   Monster getRandomMonster() {
@@ -47,7 +59,7 @@ class Game {
         return;
       }
 
-      if (killedMonster == monsters.length) {
+      if (killedMonster == monsterTotalCount) {
         print('\n축하합니다! 모든 몬스터를 물리쳤습니다.');
         fileManager.saveResult(true, character);
         return;
@@ -69,14 +81,22 @@ class Game {
       print('\n${character.name}의 턴');
       stdout.write('행동을 선택하세요 (1: 공격, 2: 방어): ');
       String? action = stdin.readLineSync();
-      
+
       if (action == attackAction) {
         character.attack(monster);
       } else if (action == defenseAction) {
         character.defend(monster.attackPower);
+      } else if (action == useItemAction) {
+        character.useItem(); // 3 입력 시 아이템 사용 함수 호출
       } else {
         print('잘못된 입력입니다. 다시 선택해주세요.');
         continue;
+      }
+
+      monster.increaseDefenceCount++;
+      // 3턴마다 몬스터의 방어력 증가
+      if (monster.increaseDefenceCount >= 3) {
+        monster.increaseDefence();
       }
 
       if (monster.health <= 0) {
