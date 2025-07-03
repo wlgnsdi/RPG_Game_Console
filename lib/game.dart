@@ -1,16 +1,15 @@
-// ignore_for_file: avoid_print
 import 'dart:io';
 import 'dart:math';
 
-import 'package:monster_battle_console/character.dart';
-import 'package:monster_battle_console/file_manager.dart';
-import 'package:monster_battle_console/monster.dart';
+import 'package:monster_battle_console/model/character.dart';
+import 'package:monster_battle_console/model/monster.dart';
+import 'package:monster_battle_console/utill/file_manager.dart';
 
 class Game {
   late FileManager fileManager;
   
-  final String attackAction = "1";
-  final String defenseAction = "2";
+  static const String attackAct = "1";
+  static const String defenseAct = "2";
 
   late Character character;
   List<Monster> monsters = [];
@@ -20,14 +19,6 @@ class Game {
     fileManager = FileManager();
     character = fileManager.loadCharacter();
     monsters = fileManager.loadMonsterData(character);
-  }
-
-  Monster getRandomMonster() {
-    if (monsters.isEmpty) {
-      throw StateError('몬스터 리스트가 비어있습니다.');
-    }
-
-    return monsters[Random().nextInt(monsters.length)];
   }
 
   void startGame() {
@@ -64,15 +55,23 @@ class Game {
     }
   }
 
+  Monster getRandomMonster() {
+    if (monsters.isEmpty) {
+      throw StateError('몬스터 리스트가 비어있습니다.');
+    }
+    // monsters 리스트의 길이가 3이고 Random().nextInt(3) 으로 사용하면 값이 0~2 사이의 값을 반환합니다.
+    return monsters[Random().nextInt(monsters.length)];
+  }
+
   void battle(Monster monster) {
     while (monster.health > 0 && character.health > 0) {
       print('\n${character.name}의 턴');
       stdout.write('행동을 선택하세요 (1: 공격, 2: 방어): ');
       String? action = stdin.readLineSync();
       
-      if (action == attackAction) {
+      if (action == attackAct) {
         character.attack(monster);
-      } else if (action == defenseAction) {
+      } else if (action == defenseAct) {
         character.defend(monster.attackPower);
       } else {
         print('잘못된 입력입니다. 다시 선택해주세요.');
@@ -94,9 +93,4 @@ class Game {
       monster.showStatus();
     }
   }
-}
-
-void main() {
-  var game = Game();
-  game.startGame();
 }
