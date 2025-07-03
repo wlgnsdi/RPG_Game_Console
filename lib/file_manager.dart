@@ -6,17 +6,22 @@ import 'package:monster_battle_console/monster.dart';
 
 class FileManager {
   Character loadCharacter() {
-    final file = File('assets/characters.txt');
-    final contents = file.readAsStringSync();
-    final stats = contents.split(',');
-    if (stats.length != 3) throw FormatException('Invalid character data');
+    try {
+      final file = File('assets/characters.txt');
+      final contents = file.readAsStringSync();
+      final stats = contents.split(',');
+      if (stats.length != 3) throw FormatException('Invalid character data');
 
-    int health = int.parse(stats[0]);
-    int attack = int.parse(stats[1]);
-    int defense = int.parse(stats[2]);
+      int health = int.parse(stats[0]);
+      int attack = int.parse(stats[1]);
+      int defense = int.parse(stats[2]);
 
-    String name = getCharacterName();
-    return Character(name, health, attack, defense);
+      String name = getCharacterName();
+      return Character(name, health, attack, defense);
+    } catch (e) {
+      print('캐릭터 데이터를 불러오는 데 실패했습니다: $e');
+      exit(1); //프로그램에 오류가 발생하여 비정상적으로 종료됨을 운영체제에 알리는 것
+    }
   }
 
   List<Monster> loadMonsterData(Character character) {
@@ -39,7 +44,7 @@ class FileManager {
       }
     } catch (e) {
       print('몬스터 데이터를 불러오는 데 실패했습니다: $e');
-      exit(1);
+      exit(1); //프로그램에 오류가 발생하여 비정상적으로 종료됨을 운영체제에 알리는 것
     }
 
     return monsters;
