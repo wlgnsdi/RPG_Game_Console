@@ -8,10 +8,10 @@ class Monster extends Creature {
   Monster(name, health, attackPower) : super(name, health, attackPower, 0);
 
   @override
-  void attack(Creature target) {
-    int damage = max(0, attackPower - target.defensePower);
-    target.health -= damage;
-    print('$name이(가) ${target.name}에게 $damage의 데미지를 입혔습니다.');
+  void attack(Creature user) {
+    int damage = max(0, attackPower - user.defensePower);
+    user.health -= damage;
+    print('$name이(가) ${user.name}에게 $damage의 데미지를 입혔습니다.');
   }
 
   @override

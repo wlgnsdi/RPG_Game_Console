@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 import 'dart:io';
 import 'dart:math';
 
@@ -9,9 +8,9 @@ import 'package:monster_battle_console/monster.dart';
 class Game {
   late FileManager fileManager;
 
-  final String attackAction = "1";
-  final String defenseAction = "2";
-  final String useItemAction = "3";
+  static const String attackAction = "1";
+  static const String defenseAction = "2";
+  static const String useItemAction = "3";
 
   late Character character;
   List<Monster> monsters = [];
@@ -26,9 +25,15 @@ class Game {
     monsterTotalCount = monsters.length;
   }
 
+  /*
+    문제 1: 캐릭터의 체력 증가 기능 추가
+    30% 확률로 보너스 체력
+    nextInt(100)은 0~99 중 하나를 랜덤하게 선택합니다.
+    <30 조건은 숫자가 0~29일 때 참이므로, 정확히 30% 확률을 의미합니다.
+  */
   void giveBonusHealth() {
     Random random = Random();
-    if (random.nextInt(30) == 0) {
+    if (random.nextInt(100) < 30) {
       character.health += 10;
       print('보너스 체력을 얻었습니다! 현재 체력: ${character.health}');
     }
@@ -114,9 +119,4 @@ class Game {
       monster.showStatus();
     }
   }
-}
-
-void main() {
-  var game = Game();
-  game.startGame();
 }

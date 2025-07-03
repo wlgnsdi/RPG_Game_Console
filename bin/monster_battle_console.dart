@@ -1,4 +1,4 @@
-import 'package:monster_battle_console/main.dart';
+import 'package:monster_battle_console/game.dart';
 
 void main(List<String> arguments) {
   Game game = Game();
