@@ -6,18 +6,27 @@ import 'package:monster_battle_console/model/creature.dart';
 
 class Character extends Creature {
   bool usedItem = false;
+  bool itemEffectActive = false; // 아이템 효과 활성화 상태
   Character(super.name, super.health, super.attackPower, super.defensePower);
 
   @override
   void attack(Creature monster) {
-    int damage = max(0, attackPower - monster.defensePower);
+    // 아이템 효과가 활성화된 경우 공격력 2배 적용
+    int currentAttackPower = itemEffectActive ? attackPower * 2 : attackPower;
+    int damage = max(0, currentAttackPower - monster.defensePower);
+    
     if (monster.health < damage) {
       monster.health = 0;
     } else {
       monster.health -= damage;
     }
 
-    print('$name이(가) ${monster.name}에게 $damage의 데미지를 입혔습니다.');
+    if (itemEffectActive) {
+      print('$name이(가) 특수 아이템의 효과로 ${monster.name}에게 강력한 $damage의 데미지를 입혔습니다!');
+      itemEffectActive = false; // 한 턴 후 효과 해제
+    } else {
+      print('$name이(가) ${monster.name}에게 $damage의 데미지를 입혔습니다.');
+    }
   }
 
   @override
