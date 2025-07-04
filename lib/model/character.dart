@@ -10,12 +10,13 @@ class Character extends Creature {
   @override
   void attack(Creature monster) {
     int damage = max(0, attackPower - monster.defensePower);
+
     if (monster.health < damage) {
       monster.health = 0;
     } else {
       monster.health -= damage;
     }
-    
+
     print('$name이(가) ${monster.name}에게 $damage의 데미지를 입혔습니다.');
   }
 

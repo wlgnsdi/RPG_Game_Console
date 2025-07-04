@@ -8,10 +8,11 @@ class FileManager {
   Character loadCharacter() {
     final file = File('assets/characters.txt');
     final contents = file.readAsStringSync();
-    final stats = contents.split(',');
+    // "50,10,5"
+    final List<String> stats = contents.split(',');
     if (stats.length != 3) throw FormatException('Invalid character data');
 
-    int health = int.parse(stats[0]);
+    int health = int.parse("1");
     int attack = int.parse(stats[1]);
     int defense = int.parse(stats[2]);
 
@@ -24,15 +25,17 @@ class FileManager {
     try {
       final file = File('assets/monsters.txt');
       final lines = file.readAsLinesSync();
+      // ["Batman,30,20", "Spiderman,20,30", "Superman,70,10"];
+
       for (var line in lines) {
         final stats = line.split(',');
         if (stats.length != 3) throw FormatException('Invalid monster data');
 
-        String name = stats[0];
-        int health = int.parse(stats[1]);
+        String name = stats[0]; // Batman
+        int health = int.parse(stats[1]); // 30
         int attack = max(
           character.defensePower,
-          Random().nextInt(int.parse(stats[2])),
+          Random().nextInt(int.parse(stats[2])), // 20
         );
 
         monsters.add(Monster(name, health, attack));

@@ -17,4 +17,8 @@ class Monster extends Creature {
   void showStatus() {
     print('$name - 체력: $health, 공격력: $attackPower');
   }
+
+  bool isDead() {
+    return health <= 0;
+  }
 }
