@@ -84,18 +84,22 @@ class Game {
   void battle(Monster monster) {
     while (monster.health > 0 && character.health > 0) {
       print('\n${character.name}의 턴');
-      stdout.write('행동을 선택하세요 (1: 공격, 2: 방어): ');
+      stdout.write('행동을 선택하세요 (1: 공격, 2: 방어, 3: 아이템): ');
       String? action = stdin.readLineSync();
 
-      if (action == attackAction) {
-        character.attack(monster);
-      } else if (action == defenseAction) {
-        character.defend(monster.attackPower);
-      } else if (action == useItemAction) {
-        character.useItem(); // 3 입력 시 아이템 사용 함수 호출
-      } else {
-        print('잘못된 입력입니다. 다시 선택해주세요.');
-        continue;
+      switch (action) {
+        case attackAction:
+          character.attack(monster);
+          break;
+        case defenseAction:
+          character.defend(monster.attackPower);
+          break;
+        case useItemAction:
+          character.useItem();
+          break;
+        default:
+          print('잘못된 입력입니다. 다시 선택해주세요.');
+          continue;
       }
 
       monster.increaseDefenceCount++;
