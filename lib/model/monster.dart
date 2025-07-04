@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 import 'dart:math';
 
-import 'package:monster_battle_console/creature.dart';
+import 'package:monster_battle_console/model/creature.dart';
 
 class Monster extends Creature {
   int increaseDefenceCount = 0;

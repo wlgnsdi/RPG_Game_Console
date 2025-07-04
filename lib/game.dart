@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:monster_battle_console/character.dart';
-import 'package:monster_battle_console/file_manager.dart';
-import 'package:monster_battle_console/monster.dart';
+import 'package:monster_battle_console/model/character.dart';
+import 'package:monster_battle_console/uitl/file_manager.dart';
+import 'package:monster_battle_console/model/monster.dart';
 
 class Game {
   late FileManager fileManager;

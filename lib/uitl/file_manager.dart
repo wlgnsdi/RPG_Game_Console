@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:monster_battle_console/character.dart';
-import 'package:monster_battle_console/monster.dart';
+import 'package:monster_battle_console/model/character.dart';
+import 'package:monster_battle_console/model/monster.dart';
 
 class FileManager {
   Character loadCharacter() {

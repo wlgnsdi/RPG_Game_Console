@@ -2,7 +2,7 @@
 
 import 'dart:math';
 
-import 'package:monster_battle_console/creature.dart';
+import 'package:monster_battle_console/model/creature.dart';
 
 class Character extends Creature {
   bool usedItem = false;
